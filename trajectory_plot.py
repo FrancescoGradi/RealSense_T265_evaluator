@@ -13,7 +13,7 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
     ys = []
     zs = []
     i = 0
-    with open('data/{fn}'.format(fn=filename)) as f:
+    with open('{fn}'.format(fn=filename)) as f:
         csv_reader = csv.reader(f, delimiter=',')
         # get positions from file
         for row in csv_reader:
@@ -49,13 +49,11 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
     fig.suptitle(filename)
     spec = gridspec.GridSpec(ncols=2, nrows=2, figure=fig)
     ax = fig.add_subplot(spec[0, 0], projection='3d')
-    ax.set_xlim(min(xs), max(xs))
-    ax.set_ylim(min(ys), max(ys))
-    ax.set_zlim(min(min(xs), min(ys)), max(max(xs), max(ys)))
     ax.set_xlabel('x (cm)')
     ax.set_ylabel('y (cm)')
     ax.set_zlabel('z (cm)')
     ax.plot(xs, ys, zs)
+    ax.auto_scale_xyz([-30, 30], [-30, 30], [-30, 30])
     if show_velocity:
         ax.add_collection3d(lc, zs=zs, zdir='z')
         cbar = fig.colorbar(lc, ax=ax, orientation='horizontal', aspect=10)
@@ -63,14 +61,17 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
     ax.set_title('3D trajectory')
     ax2 = fig.add_subplot(spec[0, 1])
     ax2.plot(xs, ys)
+    ax2.axis('scaled')
     ax2.set_title('XY plane')
     ax3 = fig.add_subplot(spec[1, 0])
     ax3.plot(xs, zs)
+    ax3.axis('scaled')
     if planar_trajectory:
         ax3.set_ylim(min(xs), max(xs))
     ax3.set_title('XZ plane')
     ax4 = fig.add_subplot(spec[1, 1])
     ax4.plot(ys, zs)
+    ax4.axis('scaled')
     if planar_trajectory:
         ax4.set_ylim(min(xs), max(xs))
     ax4.set_title('YZ plane')
@@ -82,4 +83,4 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
 
 
 if __name__ == '__main__':
-    plot_data('square_40_secondi.csv', planar_trajectory=True, show_velocity=True, sampling_freq=20)
+    plot_data('data/new_line_slow.csv', planar_trajectory=True, show_velocity=True, sampling_freq=20)
