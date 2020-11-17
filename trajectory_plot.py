@@ -18,9 +18,10 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
         # get positions from file
         for row in csv_reader:
             if i % sampling_freq == 0:
-                xs.append(float(row[0]))
-                ys.append(float(row[2]))
-                zs.append(-float(row[1]))
+                # conversion in cm
+                xs.append(float(row[0]) * 100)
+                ys.append(float(row[2]) * 100)
+                zs.append(-float(row[1]) * 100)
             i += 1
 
     if show_velocity:
@@ -36,11 +37,6 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
             old_pos = pos
 
         # chart preprocessing for color coherence
-        max_v = max(velocities)
-        min_v = min(velocities)
-        for i in range(len(velocities)):
-            # converting in cm/s, for the sake of the colorbar
-            velocities[i] *= 100
         points = np.array([xs, ys, zs]).T.reshape(-1, 1, 3)
         segments = np.concatenate([points[:-1], points[1:]], axis=1)
         lc = Line3DCollection(segments, cmap=plt.get_cmap('YlOrRd'),
@@ -56,10 +52,14 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
     ax.set_xlim(min(xs), max(xs))
     ax.set_ylim(min(ys), max(ys))
     ax.set_zlim(min(min(xs), min(ys)), max(max(xs), max(ys)))
+    ax.set_xlabel('x (cm)')
+    ax.set_ylabel('y (cm)')
+    ax.set_zlabel('z (cm)')
     ax.plot(xs, ys, zs)
     if show_velocity:
         ax.add_collection3d(lc, zs=zs, zdir='z')
-        fig.colorbar(lc, ax=ax, orientation='horizontal', aspect=10)
+        cbar = fig.colorbar(lc, ax=ax, orientation='horizontal', aspect=10)
+        cbar.set_label('Velocity (cm/s)')
     ax.set_title('3D trajectory')
     ax2 = fig.add_subplot(spec[0, 1])
     ax2.plot(xs, ys)
@@ -82,4 +82,4 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
 
 
 if __name__ == '__main__':
-    plot_data('circle_28_secondi.csv', planar_trajectory=True, show_velocity=False, sampling_freq=20)
+    plot_data('circle_28_secondi.csv', planar_trajectory=True, show_velocity=True, sampling_freq=20)
