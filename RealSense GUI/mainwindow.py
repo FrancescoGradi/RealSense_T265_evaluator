@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(400, 300) #800, 600
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
         self.listWidget.setSizePolicy(sizePolicy)
-        self.listWidget.setFont(QtGui.QFont('Arial', 50))
+        self.listWidget.setFont(QtGui.QFont('Arial', 25))
         self.listWidget.setObjectName("listWidget")
         self.horizontalLayout.addWidget(self.listWidget)
 
@@ -36,17 +36,18 @@ class Ui_MainWindow(object):
 
         self.lcdNumber = QtWidgets.QLCDNumber(self.centralwidget)
         self.lcdNumber.setNumDigits(8)
+        self.lcdNumber.setMaximumSize(150,50)
         self.lcdNumber.setObjectName("lcdNumber")
 
         self.verticalLayout.addWidget(self.lcdNumber)
 
         self.startButton = QtWidgets.QPushButton(self.centralwidget)
-        self.startButton.setMinimumSize(QtCore.QSize(200, 200))
+        self.startButton.setMinimumSize(QtCore.QSize(80, 80))#
         self.startButton.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("icon/start.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.startButton.setIcon(icon)
-        self.startButton.setIconSize(QtCore.QSize(200, 200))
+        self.startButton.setIconSize(QtCore.QSize(80, 80))#
         self.startButton.setFlat(True)
         self.startButton.setObjectName("startButton")
 
@@ -56,13 +57,13 @@ class Ui_MainWindow(object):
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHeightForWidth(self.stopButton.sizePolicy().hasHeightForWidth())
         self.stopButton.setSizePolicy(sizePolicy)
-        self.stopButton.setMinimumSize(QtCore.QSize(200, 200))
+        self.stopButton.setMinimumSize(QtCore.QSize(80, 80))#
         self.stopButton.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.stopButton.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icon/stop.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.stopButton.setIcon(icon1)
-        self.stopButton.setIconSize(QtCore.QSize(180, 180))
+        self.stopButton.setIconSize(QtCore.QSize(70, 70))#
         self.stopButton.setFlat(True)
         self.stopButton.setObjectName("stopButton")
 
