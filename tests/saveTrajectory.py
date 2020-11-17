@@ -9,9 +9,10 @@ cfg.enable_stream(rs.stream.pose)
 pipe.start(cfg)
 
 trajectory = []
+filename = "trajectory"
 
 try:
-    for _ in range(500):
+    while True:
         frames = pipe.wait_for_frames()
 
         pose = frames.get_pose_frame()
@@ -20,13 +21,10 @@ try:
             trajectory.append([data.translation.x, data.translation.y, data.translation.z,
                                data.velocity.x, data.velocity.y, data.velocity.z,
                                data.acceleration.x, data.acceleration.y, data.acceleration.z])
-            print("Frame #{}".format(pose.frame_number))
-            print("Position: {}".format(data.translation))
-            print("Velocity: {}".format(data.velocity))
-            print("Acceleration: {}\n".format(data.acceleration))
 
 finally:
-    print(trajectory)
+    print("Saving...")
+    print("Total frames: #{}".format(pose.frame_number))
 
-    np.savetxt("trajectory.csv", np.asarray(trajectory), delimiter=",")
+    np.savetxt("../data/{}.csv".format(filename), np.asarray(trajectory), delimiter=",")
     pipe.stop()

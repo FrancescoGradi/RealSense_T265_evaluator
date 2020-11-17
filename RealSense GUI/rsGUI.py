@@ -1,7 +1,7 @@
 import sys
 import glob
 import subprocess
-
+import signal
 
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QMessageBox
@@ -23,22 +23,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.startButton.clicked.connect(self.start)
         self.stopButton.clicked.connect(self.stop)
 
-        for file in glob.glob('test/*.py'):
+        for file in glob.glob('../tests/*.py'):
             self.listWidget.addItem(file[5:])
             self.fileList.append(file)
 
     def start(self):
         current_file = self.listWidget.currentRow()
         self.my_file = self.fileList[current_file]
+        print(self.my_file)
         print('START ' + str(self.my_file))
-        self.timerId = self.startTimer(1)
+        self.timerId = self.startTimer(1000)
 
         #os.system('python ' + str(my_file))
-        self.my_process = subprocess.Popen(['python', str(self.my_file), 'arg1', 'arg2'])
+        self.my_process = subprocess.Popen(['python3', str(self.my_file), 'arg1', 'arg2'])
 
     def stop(self):
         print('STOP ' + str(self.my_file))
-        self.my_process.terminate()
+        self.my_process.send_signal(signal.SIGINT)
         self.killTimer(self.timerId)
         QMessageBox.about(self, "Time", "Execution time: " + str(self.currentTime.toString('hh:mm:ss')))
         self.currentTime = QtCore.QTime(0, 0, 0)
