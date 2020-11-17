@@ -31,7 +31,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         current_file = self.listWidget.currentRow()
         self.my_file = self.fileList[current_file]
         print('START ' + str(self.my_file))
-        self.timerId = self.startTimer(1)
+        self.timerId = self.startTimer(1000)
 
         #os.system('python ' + str(my_file))
         self.my_process = subprocess.Popen(['python3', str(self.my_file), 'arg1', 'arg2'])
