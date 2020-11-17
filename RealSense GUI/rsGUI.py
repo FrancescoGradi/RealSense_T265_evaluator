@@ -23,7 +23,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.startButton.clicked.connect(self.start)
         self.stopButton.clicked.connect(self.stop)
 
-        for file in glob.glob('test/*.py'):
+        for file in glob.glob('../tests/*.py'):
             self.listWidget.addItem(file[5:])
             self.fileList.append(file)
 
@@ -34,7 +34,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.timerId = self.startTimer(1)
 
         #os.system('python ' + str(my_file))
-        self.my_process = subprocess.Popen(['python', str(self.my_file), 'arg1', 'arg2'])
+        self.my_process = subprocess.Popen(['python3', str(self.my_file), 'arg1', 'arg2'])
 
     def stop(self):
         print('STOP ' + str(self.my_file))
