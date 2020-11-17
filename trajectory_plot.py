@@ -52,8 +52,10 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
     ax.set_xlabel('x (cm)')
     ax.set_ylabel('y (cm)')
     ax.set_zlabel('z (cm)')
+    absolute_min = min(xs + ys + zs)
+    absolute_max = max(xs + ys + zs)
     ax.plot(xs, ys, zs)
-    ax.auto_scale_xyz([-30, 30], [-30, 30], [-30, 30])
+    ax.auto_scale_xyz([absolute_min, absolute_max], [absolute_min, absolute_max], [absolute_min, absolute_max])
     if show_velocity:
         ax.add_collection3d(lc, zs=zs, zdir='z')
         cbar = fig.colorbar(lc, ax=ax, orientation='horizontal', aspect=10)
@@ -83,4 +85,4 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
 
 
 if __name__ == '__main__':
-    plot_data('data/new_line_slow.csv', planar_trajectory=True, show_velocity=True, sampling_freq=20)
+    plot_data('data/random_fino_origine.csv', planar_trajectory=True, show_velocity=True, sampling_freq=20)
