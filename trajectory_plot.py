@@ -21,7 +21,7 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
                 # conversion in cm
                 xs.append(float(row[0]) * 100)
                 ys.append(float(row[2]) * 100)
-                zs.append(-float(row[1]) * 100)
+                zs.append(float(row[1]) * 100)
             i += 1
 
     if show_velocity:
@@ -78,11 +78,12 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
         ax4.set_ylim(min(xs), max(xs))
     ax4.set_title('YZ plane')
     plt.show()
+    '''
     if show_velocity:
         fig.savefig('figures/{fn}_velocity.png'.format(fn=filename))
     else:
         fig.savefig('figures/{fn}.png'.format(fn=filename))
-
+    '''
 
 if __name__ == '__main__':
-    plot_data('data/random_fino_origine.csv', planar_trajectory=True, show_velocity=True, sampling_freq=20)
+    plot_data('data/square_40_secondi.csv', planar_trajectory=True, show_velocity=True, sampling_freq=1)
