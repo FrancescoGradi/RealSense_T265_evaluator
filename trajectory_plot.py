@@ -86,4 +86,4 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
     '''
 
 if __name__ == '__main__':
-    plot_data('data/circle_00_00_19.csv', planar_trajectory=True, show_velocity=True, sampling_freq=1)
+    plot_data('data/line_00_00_14.csv', planar_trajectory=True, show_velocity=True, sampling_freq=1)
