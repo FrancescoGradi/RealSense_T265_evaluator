@@ -8,7 +8,7 @@ from mpl_toolkits.mplot3d.art3d import Line3DCollection
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 
-def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20):
+def plot_data(filename, planar_trajectory=True, show_velocity=True, sampling_freq=20, true_trajectory=None):
     xs = []
     ys = []
     zs = []
@@ -77,6 +77,13 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
     if planar_trajectory:
         ax4.set_ylim(min(xs), max(xs))
     ax4.set_title('YZ plane')
+
+    if true_trajectory is not None:
+        ax.plot([x[0] for x in true_trajectory], [y[1] for y in true_trajectory], [z[2] for z in true_trajectory])
+        ax2.plot([x[0] for x in true_trajectory], [y[1] for y in true_trajectory], color='r')
+        ax3.plot([x[0] for x in true_trajectory], [z[2] for z in true_trajectory], color='r')
+        ax4.plot([y[1] for y in true_trajectory], [z[2] for z in true_trajectory], color='r')
+
     plt.show()
     '''
     if show_velocity:
@@ -85,5 +92,6 @@ def plot_data(filename, planar_trajectory, show_velocity=True, sampling_freq=20)
         fig.savefig('figures/{fn}.png'.format(fn=filename))
     '''
 
+
 if __name__ == '__main__':
-    plot_data('data/line_00_00_14.csv', planar_trajectory=True, show_velocity=True, sampling_freq=1)
+    plot_data('data/outdoor_2d/square_00_00_28.csv', planar_trajectory=True, show_velocity=True, sampling_freq=1)
