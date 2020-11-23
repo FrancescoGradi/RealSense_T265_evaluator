@@ -4,6 +4,7 @@ import time
 
 
 def saveTrajectory(filename='trajectory'):
+
     pipe = rs.pipeline()
 
     cfg = rs.config()
