@@ -1,4 +1,5 @@
 import csv
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -34,8 +35,8 @@ def drawConfidenceHistogram(filename):
 
 
 if __name__ == '__main__':
-    filename = 'data/full_indoor/square_00_00_26.csv'
-    drawConfidenceHistogram(filename)
 
-    filename = 'data/full_outdoor/square_00_00_20.csv'
-    drawConfidenceHistogram(filename)
+    directory = 'data/fisheye_covered'
+
+    for filename in os.listdir(directory):
+        drawConfidenceHistogram(directory + '/' + filename)
