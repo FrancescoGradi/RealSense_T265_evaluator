@@ -37,6 +37,6 @@ def saveTrajectory(filename='trajectory'):
         elapsed_time = end - start
         print("Time elapsed: " + str(elapsed_time))
 
-        np.savetxt("../data/{}_{}.csv".format(filename, str(time.strftime("%H_%M_%S", time.gmtime(elapsed_time)))),
-                   np.asarray(trajectory), delimiter=",")
+        np.savetxt("../data/{}_{}_{}.csv".format(filename, str(time.strftime("%H_%M_%S", time.gmtime(elapsed_time))),
+                                                 str(time.time())), np.asarray(trajectory), delimiter=",")
         pipe.stop()
