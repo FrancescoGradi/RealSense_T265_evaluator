@@ -1,8 +1,10 @@
 import csv
 import os
+import math
+import matplotlib.pyplot as plt
 
 def quaternion_to_euler(x, y, z, w):
-    import math
+
     t0 = +2.0 * (w * x + y * z)
     t1 = +1.0 - 2.0 * (x * x + y * y)
     X = math.degrees(math.atan2(t0, t1))
@@ -23,36 +25,46 @@ def plot_data(filename, sampling_freq=20):
     x_angle_degree = []
     y_angle_degree = []
     z_angle_degree = []
+    frame = []
     i = 0
+
     with open('{fn}'.format(fn=filename)) as f:
         csv_reader = csv.reader(f, delimiter=',')
         for row in csv_reader:
             if i % sampling_freq == 0:
                 x, y, z = quaternion_to_euler(float(row[9]), float(row[10]), float(row[11]), float(row[12]))
-
-                x_angle_degree.append(x)
-                y_angle_degree.append(y)
-                z_angle_degree.append(z)
-
+                frame.append(i)
+                x_angle_degree.append(int(x))
+                y_angle_degree.append(int(y))
+                z_angle_degree.append(int(z))
             i += 1
 
-    x1 = sum(x_angle_degree) / len(x_angle_degree)
-    y1 = sum(y_angle_degree) / len(y_angle_degree)
-    z1 = sum(z_angle_degree) / len(z_angle_degree)
+    x_avg = sum(x_angle_degree) / len(x_angle_degree)
+    y_avg = sum(y_angle_degree) / len(y_angle_degree)
+    z_avg = sum(z_angle_degree) / len(z_angle_degree)
 
-    print('degree x:', int(x1), 'y: ', int(y1), 'z: ', int(z1))
+    print('Avg degree x:', int(x_avg), 'y: ', int(y_avg), 'z: ', int(z_avg))
+
+    plt.plot(frame, x_angle_degree, 'r', label='x')
+    plt.plot(frame, y_angle_degree, 'b', label='y')
+    plt.plot(frame, z_angle_degree, 'g', label='z')
+    plt.legend()
+    plt.title(filename)
+    plt.ylabel('degrees')
+    plt.xlabel('frame')
+    plt.show()
 
 
 if __name__ == '__main__':
     files = []
     count = 0
-    for filename in os.listdir(os.path.abspath(os.curdir)+'/data/static_rotations'):
+    for filename in os.listdir(os.path.abspath(os.curdir)+'/data/full_rotations'):
         files.append(filename)
     files.sort()
     print(' ')
     for file in files:
         print(file)
-        plot_data('data/static_rotations/'+file, sampling_freq=1)
+        plot_data('data/full_rotations/'+file, sampling_freq=1)
         count += 1
         if count % 4 == 0:
             print(' ')
