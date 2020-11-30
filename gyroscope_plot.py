@@ -3,6 +3,7 @@ import os
 import math
 import matplotlib.pyplot as plt
 
+
 def quaternion_to_euler(x, y, z, w):
 
     t0 = +2.0 * (w * x + y * z)
