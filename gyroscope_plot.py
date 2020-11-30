@@ -33,7 +33,7 @@ def plot_data(filename, sampling_freq=20):
         csv_reader = csv.reader(f, delimiter=',')
         for row in csv_reader:
             if i % sampling_freq == 0:
-                x, y, z = quaternion_to_euler(float(row[9]), float(row[10]), float(row[11]), float(row[12]))
+                y, z, x = quaternion_to_euler(float(row[9]), float(row[10]), float(row[11]), float(row[12]))
                 frame.append(i)
                 x_angle_degree.append(int(x))
                 y_angle_degree.append(int(y))
