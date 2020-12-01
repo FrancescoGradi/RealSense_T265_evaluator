@@ -95,7 +95,7 @@ def plot_data(filename, planar_trajectory=True, show_velocity=True, sampling_fre
 
 
 if __name__ == '__main__':
-    directory = 'data/full_indoor/'
+    directory = 'data/full_outdoor/'
 
     for filename in os.listdir(directory):
         plot_data(directory + filename, planar_trajectory=True, show_velocity=True, sampling_freq=1)
