@@ -20,7 +20,7 @@ def plot_data(filename, planar_trajectory=True, show_velocity=True, sampling_fre
         for row in csv_reader:
             if i % sampling_freq == 0:
                 # conversion in cm
-                xs.append(float(row[0]) * 100)
+                xs.append(- float(row[0]) * 100)
                 ys.append(float(row[2]) * 100)
                 zs.append(float(row[1]) * 100)
             i += 1
@@ -95,8 +95,8 @@ def plot_data(filename, planar_trajectory=True, show_velocity=True, sampling_fre
 
 
 if __name__ == '__main__':
-    directory = 'data/full_outdoor/'
+    directory = 'data/very_long_bike/'
 
     for filename in os.listdir(directory):
-        plot_data(directory + filename, planar_trajectory=True, show_velocity=True, sampling_freq=1)
+        plot_data(directory + filename, planar_trajectory=True, show_velocity=True, sampling_freq=10)
 
