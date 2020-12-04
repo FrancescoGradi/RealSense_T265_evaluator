@@ -7,6 +7,8 @@ The experiments were done indoors and outdoors and were classified as follows:
 - Very long range experiments (> 100m) 
 - Rotation experiments
 
+![output](https://github.com/FrancescoGradi/RealSense_T265_evaluator/blob/master/demoImages/RealSense_Fisheye.gif)
+
 ## Getting started
 To get a local copy up and running follow these simple steps.
 ### Prerequisites
@@ -29,8 +31,8 @@ To get a local copy up and running follow these simple steps.
 ## Results
 The following table shows a short description of our results, for more details see the [report](link)
 
-<!--
+
 | Short Range | Medium Range | Long Range | Very Long Range| Rotation
 | :---: | :---: | :---: | :---: | :---: |
-| <img src="https://github.com/loredeluca/ExifViewer/blob/main/icon/addimage.png" width=" 100" height="100"> | <img src="https://github.com/loredeluca/ExifViewer/blob/main/icon/remove.png" width="100" height="100"> | <img src="https://github.com/loredeluca/ExifViewer/blob/main/icon/doubleclick.png" width=" 25" height="25"> | <img src="https://github.com/loredeluca/ExifViewer/blob/main/icon/map.png" width=" 18" height="25"> | <img src="https://github.com/loredeluca/ExifViewer/blob/main/icon/map.png" width=" 18" height="25"> |
-| a | b | c | d | e | -->
+| <img src="https://github.com/FrancescoGradi/RealSense_T265_evaluator/blob/master/demoImages/miastanza.png" width=" 170" height="170"> | <img src="https://github.com/FrancescoGradi/RealSense_T265_evaluator/blob/master/demoImages/stanzone.png" width="170" height="170"> | <img src="https://github.com/FrancescoGradi/RealSense_T265_evaluator/blob/master/demoImages/giardino.png" width=" 170" height="170"> | <img src="https://github.com/FrancescoGradi/RealSense_T265_evaluator/blob/master/demoImages/pista.png" width="170" height="160"> | <img src="https://github.com/FrancescoGradi/RealSense_T265_evaluator/blob/master/demoImages/YawPitchRoll.png" width="170" height="170"> |
+| commento risultati | commento risultati | commento risultati | commento risultati | commento risultati |
