@@ -19,7 +19,7 @@ To get a local copy up and running follow these simple steps.
 
 **Software**
 - [Intel RealSense SDK](https://www.intelrealsense.com/developers/)
-- pyrealsense 2
+- pyrealsense2 2.33.1
 - numpy 1.16.2
 - matplotlib 3.1.1
 
