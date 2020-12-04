@@ -81,7 +81,7 @@ def drawConfidenceHistogram(filename):
 
 if __name__ == '__main__':
 
-    directory = 'data/shaking'
+    directory = 'data/full_outdoor'
 
     for filename in os.listdir(directory):
         drawConfidenceHistogram(directory + '/' + filename)
