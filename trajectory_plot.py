@@ -9,33 +9,38 @@ from mpl_toolkits.mplot3d.art3d import Line3DCollection
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 
-def plot_data(filename, planar_trajectory=True, show_velocity=True, sampling_freq=20, true_trajectory=None):
+def plot_data(filename, planar_trajectory=True, show_velocity=True, sampling_freq=20, true_trajectory=None, scale='cm'):
     xs = []
     ys = []
     zs = []
+    vxs = []
+    vys = []
+    vzs = []
     i = 0
     with open('{fn}'.format(fn=filename)) as f:
         csv_reader = csv.reader(f, delimiter=',')
         # get positions from file
         for row in csv_reader:
             if i % sampling_freq == 0:
-                # conversion in cm
-                xs.append(- float(row[0]) * 100)
-                ys.append(float(row[2]) * 100)
-                zs.append(float(row[1]) * 100)
+                if scale == 'cm':
+                    # conversion in cm
+                    xs.append(-float(row[0]) * 100)
+                    ys.append(float(row[2]) * 100)
+                    zs.append(float(row[1]) * 100)
+                else:
+                    xs.append(-float(row[0]))
+                    ys.append(float(row[2]))
+                    zs.append(float(row[1]))
+                vxs.append(float(row[3]))
+                vys.append(float(row[5]))
+                vzs.append(float(row[4]))
             i += 1
 
     if show_velocity:
         velocities = []
-        old_pos = (0., 0., 0.)
-        for pos in zip(xs, ys, zs):
+        for pos in zip(vxs, vys, vzs):
             # compute velocity for each point
-            vx = pos[0] - old_pos[0]
-            vy = pos[1] - old_pos[1]
-            vz = pos[2] - old_pos[2]
-            v = (vx, vy, vz)
-            velocities.append(math.sqrt(pow(v[0], 2) + pow(v[1], 2) + pow(v[2], 2)))
-            old_pos = pos
+            velocities.append(math.sqrt(pow(pos[0], 2) + pow(pos[1], 2) + pow(pos[2], 2)))
 
         # chart preprocessing for color coherence
         points = np.array([xs, ys, zs]).T.reshape(-1, 1, 3)
@@ -60,7 +65,7 @@ def plot_data(filename, planar_trajectory=True, show_velocity=True, sampling_fre
     if show_velocity:
         ax.add_collection3d(lc, zs=zs, zdir='z')
         cbar = fig.colorbar(lc, ax=ax, orientation='horizontal', aspect=10)
-        cbar.set_label('Velocity (cm/s)')
+        cbar.set_label('Velocity (m/s)')
     ax.set_title('3D trajectory')
     ax2 = fig.add_subplot(spec[0, 1])
     ax2.plot(xs, ys)
@@ -86,17 +91,16 @@ def plot_data(filename, planar_trajectory=True, show_velocity=True, sampling_fre
         ax4.plot([y[1] for y in true_trajectory], [z[2] for z in true_trajectory], color='r')
 
     plt.show()
-    '''
-    if show_velocity:
+
+    '''if show_velocity:
         fig.savefig('figures/{fn}_velocity.png'.format(fn=filename))
     else:
-        fig.savefig('figures/{fn}.png'.format(fn=filename))
-    '''
+        fig.savefig('figures/{fn}.png'.format(fn=filename))'''
 
 
 if __name__ == '__main__':
-    directory = 'data/very_long_bike/'
+    directory = 'data/very_long/'
 
     for filename in os.listdir(directory):
-        plot_data(directory + filename, planar_trajectory=True, show_velocity=True, sampling_freq=10)
+        plot_data(directory + filename, planar_trajectory=True, show_velocity=True, sampling_freq=10, scale='m')
 

@@ -47,8 +47,8 @@ def plot_data(filename, sampling_freq=20):
     print('Avg degree x:', int(x_avg), 'y: ', int(y_avg), 'z: ', int(z_avg))
 
     plt.plot(frame, x_angle_degree, 'r', label='x')
-    plt.plot(frame, y_angle_degree, 'b', label='y')
-    plt.plot(frame, z_angle_degree, 'g', label='z')
+    plt.plot(frame, y_angle_degree, 'g', label='y')
+    plt.plot(frame, z_angle_degree, 'b', label='z')
     plt.legend()
     plt.title(filename)
     plt.ylabel('degrees')
@@ -59,13 +59,13 @@ def plot_data(filename, sampling_freq=20):
 if __name__ == '__main__':
     files = []
     count = 0
-    for filename in os.listdir(os.path.abspath(os.curdir)+'/data/full_rotations'):
+    for filename in os.listdir(os.path.abspath(os.curdir)+'/data/z_rotations'):
         files.append(filename)
     files.sort()
     print(' ')
     for file in files:
         print(file)
-        plot_data('data/full_rotations/'+file, sampling_freq=1)
+        plot_data('data/z_rotations/'+file, sampling_freq=1)
         count += 1
         if count % 4 == 0:
             print(' ')

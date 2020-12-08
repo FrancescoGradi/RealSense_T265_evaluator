@@ -60,7 +60,7 @@ def plot_data(filename, sampling_freq=20):
 
     print('Avg pos:', final_pos_avg, 'Avg speed: ', final_speed_avg, 'Avg acc: ', final_acc_avg)
 
-    fig = plt.figure(figsize=(10, 5))
+    fig = plt.figure(figsize=(10, 7))
     fig.suptitle(filename)
     spec = gridspec.GridSpec(ncols=2, nrows=2, figure=fig)
 
