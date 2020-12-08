@@ -29,7 +29,7 @@ To get a local copy up and running follow these simple steps.
 3. Open the `Test` folder and choose the right file to do your experiments (if you have an LCD touchscreen to connect to the Raspberry, you can use the GUI to manage the files, but remember to install PyQt 5.15.1)
 
 ## Results
-The following table shows a short description of our results, for more details see the [report](link).
+The following table shows a short description of our results, for more details see the [report](https://github.com/FrancescoGradi/RealSense_T265_evaluator/blob/master/relazione.pdf).
 
 For all experiments it is advisable to wait for a camera stabilization time of 5-10 seconds
 
