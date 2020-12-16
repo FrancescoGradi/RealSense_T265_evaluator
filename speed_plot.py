@@ -38,27 +38,37 @@ def plot_data(filename, sampling_freq=20):
                 y_speed.append(linalg.norm(float(row[4])) * 3.6)
                 z_speed.append(linalg.norm(float(row[5])) * 3.6)
 
+                x_acc.append(float(row[6]))
+                y_acc.append(float(row[7]))
+                z_acc.append(float(row[8]))
+
                 final_pos.append(math.sqrt(
                     pow(linalg.norm(float(row[0])), 2) + pow(linalg.norm(float(row[1])), 2) + pow(
                         linalg.norm(float(row[2])), 2)))
 
-                final_speed.append(math.sqrt(
-                    pow(linalg.norm(float(row[3])), 2) + pow(linalg.norm(float(row[4])), 2) + pow(
-                        linalg.norm(float(row[5])), 2)) * 3.6)
+                speed = math.sqrt(pow(linalg.norm(float(row[3])), 2) + pow(linalg.norm(float(row[4])), 2) + pow(linalg.norm(float(row[5])), 2))
+
+                final_speed.append(speed * 3.6)
+
+                if speed > 0.001:
+                    final_acc.append((float(row[3]) * float(row[6]) + float(row[4]) * float(row[7]) + float(row[5]) * float(row[8])) / speed)
+                else:
+                    final_acc.append(0)
 
                 frame.append(i)
+
             i += 1
 
+    final_acc2 = []
     last_speed = 0.0
     for i in range(len(x_speed)):
-        """final_acc.append((x_speed[i] / final_speed[i]) * x_acc[i] +
-                         (y_speed[i] / final_speed[i]) * y_acc[i] +
-                         (z_speed[i] / final_speed[i]) * z_acc[i])"""
-        final_acc.append(final_speed[i] - last_speed)
+        final_acc2.append(final_speed[i] - last_speed)
         last_speed = final_speed[i]
 
-    final_acc.pop(0)
-    final_acc.insert(0, 0.0)
+    final_acc2.pop(0)
+    final_acc2.insert(0, 0.0)
+
+
     final_pos_avg = sum(final_pos) / len(final_pos)
     final_speed_avg = sum(final_speed) / len(final_speed)
     final_acc_avg = sum(final_acc) / len(final_acc)
@@ -67,23 +77,32 @@ def plot_data(filename, sampling_freq=20):
 
     fig = plt.figure(figsize=(10, 7))
     fig.suptitle(filename)
-    spec = gridspec.GridSpec(ncols=2, nrows=2, figure=fig)
+    spec = gridspec.GridSpec(ncols=1, nrows=2, figure=fig)
 
-    ax = fig.add_subplot(spec[0, 0])
-    ax.plot(frame, final_pos)
-    ax.set_title(' ')
-    ax.set_ylabel('position (m)')
-    ax.set_xlabel('frame')
+    #ax = fig.add_subplot(spec[0, 0])
+    #ax.plot(frame, final_pos)
+    #ax.set_title(' ')
+    #ax.set_ylabel('position (m)')
+    #ax.set_xlabel('frame')
 
-    ax2 = fig.add_subplot(spec[0, 1])
+    ax2 = fig.add_subplot(spec[0, 0])
     ax2.plot(frame, final_speed)
     ax2.set_title(' ')
     ax2.set_ylabel('speed (km/h)')
     ax2.set_xlabel('frame')
 
-    ax3 = fig.add_subplot(spec[1, 1])
+    '''
+    ax3 = fig.add_subplot(spec[0, 0])
+    ax3.plot(frame, final_acc2)
+    ax3.set_title('')
+    ax3.set_ylabel('acc (m/s^2)')
+    # ax3.set_ylim(-1, 1)
+    ax3.set_xlabel('frame')
+    '''
+
+    ax3 = fig.add_subplot(spec[1, 0])
     ax3.plot(frame, final_acc)
-    ax3.set_title(' ')
+    ax3.set_title('')
     ax3.set_ylabel('acc (m/s^2)')
     #ax3.set_ylim(-1, 1)
     ax3.set_xlabel('frame')
